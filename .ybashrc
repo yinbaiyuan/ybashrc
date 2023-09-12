@@ -1,0 +1,110 @@
+###############################################
+################## ybashrc ####################
+###############################################
+
+#=====启动显示信息#=====
+
+printf "\n"
+printf "\e[34m██╗   ██╗██████╗  █████╗ ███████╗██╗  ██╗██████╗  ██████╗\e[0m\n"
+printf "\e[34m╚██╗ ██╔╝██╔══██╗██╔══██╗██╔════╝██║  ██║██╔══██╗██╔════╝\e[0m\n"
+printf "\e[34m ╚████╔╝ ██████╔╝███████║███████╗███████║██████╔╝██║     \e[0m\n"
+printf "\e[34m  ╚██╔╝  ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██║     \e[0m\n"
+printf "\e[34m   ██║   ██████╔╝██║  ██║███████║██║  ██║██║  ██║╚██████╗\e[0m\n"
+printf "\e[34m   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝\e[0m\n"
+printf "\n"                                                     
+
+
+#=====debug相关命令=====
+
+## 快速更新当前SHELL的环境，无需退出，即可相应最新修改
+alias sc="source ~/.bashrc"
+alias vis="vi $HOME/ybashrc/.ybashrc"
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+
+#=====目录相关快捷命令=====
+
+## 显示目录等时，会自动渲染颜色
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+## 以列表形式显示当前路径下的所有文件文件夹，包括隐藏文件，但不显示 . 和 ..
+## 以方便读取的形式显示文件和目录的大小，注意，目录大小不包含内部的文件
+## 在列出的文件名称后加提示符；可执行档则 "*", 目录加 "/"
+alias ll='ls -AlhF'
+
+## 跳转到上层目录的快捷命令
+alias ..='builtin cd ..; ls'
+alias ...='builtin cd ../..; ls'
+alias ....='builtin cd ../../..; ls'
+alias .....='builtin cd ../../../..; ls'
+
+## 跳转到新目录后，自动列出目录下的文件
+function cd()
+{
+    builtin cd "$@"
+    ls
+}
+
+alias gh='cd $HOME'
+alias gr='cd /'
+
+function duh()
+{
+    du -h --max-depth=$1
+}
+
+function sduh()
+{
+    sudo du -h --max-depth=$1
+}
+
+#=====文件编辑相关快捷命令=====
+
+alias vi='vim'
+alias svi='sudo vim'
+
+alias grepr='grep -rn'
+alias sgrepr='sudo grep -rn'
+
+
+#=====服务相关快捷命令=====
+
+alias servicels='systemctl list-units --type service'
+
+#=====git相关快捷命令=====
+
+alias gc='~/ybashrc/command-gc.sh'
+
+alias sgc='sudo ~/ybashrc/command-gc.sh'
+
+alias gf='~/ybashrc/command-gf.sh'
+
+alias sgf='sudo ~/ybashrc/command-gf.sh'
+
+alias gs='git status'
+
+alias sgs='sudo git status'
+
+alias gss='git status -s'
+
+alias sgss='sudo git status -s'
+
+alias gd='git diff'
+
+alias sgd='sudo git diff'
+
+
+#=====flow工作流相关快捷命令=====
+
+alias cf='~/ybashrc/command-cf.sh'
+
+alias scf='sudo ~/ybashrc/command-cf.sh'
